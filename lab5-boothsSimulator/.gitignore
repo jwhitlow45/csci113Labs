@@ -2,6 +2,6 @@
 *
 # Unignore .gitignore
 !.gitignore
-# Unignore .cpp files
+# Unignore .cpp and .h files
 !src
 !*.cpp
