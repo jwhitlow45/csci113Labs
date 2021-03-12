@@ -5,3 +5,5 @@
 # Unignore .cpp and .h files
 !src
 !*.cpp
+!include
+!*.h
