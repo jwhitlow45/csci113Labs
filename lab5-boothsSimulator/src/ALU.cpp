@@ -1,6 +1,8 @@
 #include <cstddef>
 #include "ALU.hpp"
 
+using namespace std;
+
 //--------Member modifications methods--------
 void ALU::setControl(bool arg[ALU_CTRL_BITS])
 {
@@ -52,10 +54,9 @@ bool *ALU::add()
 {
     //init array for return
     bool *sum = new bool[16];
-    //clear carry to 0
-    clearCarry();
-    for (int i = 15; i > -1; i++)
+    for (int i = 15; i > -1; i--)
     {
+        bool carryIn = getCarry();
         int total = getA()[i] + getB()[i] + getCarry();
         if (total == 0)
             sum[i] = total;
@@ -74,18 +75,28 @@ bool *ALU::add()
             sum[i] = 1;
             setCarry();
         }
+        //if carry in does not equal carry out
+        if (i == 0 && carryIn != getCarry())
+        {
+            clearCarry();
+            throw "**OVERFLOW**";
+        }
     }
+    clearCarry();
     return sum;
 }
 
-void ALU::subtract()
+bool *ALU::subtract()
 {
-    return;
+    //perform 1's complement and set carry to 1 (2's complement)
+    negate(getB());
+    setCarry();
+    return add();
 }
 
 void ALU::negate(bool arg[ALU_BITS])
 {
-    for (size_t i = 0; i < 15; i++)
+    for (size_t i = 0; i < 16; i++)
         arg[i] = !arg[i];
 }
 

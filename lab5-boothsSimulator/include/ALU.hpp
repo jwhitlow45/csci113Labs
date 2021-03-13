@@ -46,7 +46,7 @@ public:
 
     //--------ALU Operations--------
     bool *add();
-    void subtract();
+    bool *subtract();
     void negate(bool arg[ALU_BITS]);
 
     //constructor
