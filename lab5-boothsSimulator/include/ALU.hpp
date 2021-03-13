@@ -6,10 +6,10 @@ using namespace std;
 class ALU
 {
 private:
-    bool control[ALU_CTRL_BITS];
-    bool A[ALU_BITS];
-    bool B[ALU_BITS];
-    bool carry;
+    bool control[ALU_CTRL_BITS];    //control bits for alu
+    bool A[ALU_BITS];               //a register for alu
+    bool B[ALU_BITS];               //b register for alu
+    bool carry;                     //carry bit for alu
 
 public:
     //--------Member modifications methods--------
