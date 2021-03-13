@@ -6,4 +6,4 @@
 !src
 !*.cpp
 !include
-!*.h
+!*.hpp
