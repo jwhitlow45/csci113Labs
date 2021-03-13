@@ -8,7 +8,7 @@ void printArr(bool *arr);
 
 int main()
 {
-    /*ALU throws const char* exception on overflow*/
+    
     return 0;
 }
 

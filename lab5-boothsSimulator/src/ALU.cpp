@@ -4,18 +4,6 @@
 using namespace std;
 
 //--------Member modifications methods--------
-void ALU::setControl(bool arg[ALU_CTRL_BITS])
-{
-    for (size_t i = 0; i < ALU_CTRL_BITS; i++)
-        control[i] = arg[i];
-}
-
-void ALU::clearControl()
-{
-    bool clear[ALU_CTRL_BITS] = {0, 0, 0, 0};
-    setControl(clear);
-}
-
 void ALU::setA(bool *value)
 {
     for (size_t i = 0; i < ALU_BITS; i++)
@@ -105,7 +93,6 @@ void ALU::negate(bool arg[ALU_BITS])
 // constructor
 ALU::ALU()
 {
-    clearControl(); //clear control to 0
     clearA();       //clear a to 0
     clearB();       //clear b to 0
     clearCarry();   //clear carry to 0

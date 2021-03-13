@@ -1,12 +1,10 @@
 #define ALU_BITS 16
-#define ALU_CTRL_BITS 4
 
 using namespace std;
 
 class ALU
 {
 private:
-    bool control[ALU_CTRL_BITS]; //control bits for alu
     bool A[ALU_BITS];            //a register for alu
     bool B[ALU_BITS];            //b register for alu
     bool carry;                  //carry bit for alu
@@ -14,14 +12,6 @@ private:
 
 public:
     //--------Member modifications methods--------
-    // CONTROL
-    //set control to passed value
-    void setControl(bool arg[4]);
-    //clear control to 0000
-    void clearControl();
-    //return control
-    bool *getControl() { return control; }
-
     //A getter
     bool *getA() { return A; }
 
