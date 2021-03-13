@@ -1,6 +1,3 @@
-#pragma once
-#include <string>
-
 #define ALU_BITS 16
 #define ALU_CTRL_BITS 4
 
@@ -31,9 +28,14 @@ public:
     bool *getB() { return B; }
 
     //set input to arg
-    void setInput(bool input[16], bool value[16]);
+    void setA(bool *);
     //clear inputs to 0000 0000 0000 0000
-    void clearInput(bool arg[16]);
+    void clearA();
+
+    //set input to arg
+    void setB(bool *);
+    //clear inputs to 0000 0000 0000 0000
+    void clearB();
 
     //set carry
     void setCarry() { carry = true; }
@@ -43,7 +45,10 @@ public:
     bool getCarry() { return carry; }
 
     //--------ALU Operations--------
-    void add();
+    bool *add();
     void subtract();
     void negate(bool arg[ALU_BITS]);
+
+    //constructor
+    ALU();
 };
