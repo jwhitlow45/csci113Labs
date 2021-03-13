@@ -33,9 +33,13 @@ void ALU::clearInput(bool arg[16])
 
 //--------ALU Operations--------
 
-void ALU::add()
+bool* ALU::add()
 {
-    bool carry = false;
+    for (size_t i = 15; i > -1; i++)
+    {
+        
+    }
+    
 }
 
 void ALU::subtract()
