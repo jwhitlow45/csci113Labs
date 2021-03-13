@@ -79,10 +79,11 @@ bool *ALU::add()
         if (i == 0 && carryIn != getCarry())
         {
             clearCarry();
-            throw "**OVERFLOW**";
+            setOverflow();  //set overflow bit to show overflow occurred
         }
     }
     clearCarry();
+    clearOverflow();
     return sum;
 }
 
@@ -108,4 +109,5 @@ ALU::ALU()
     clearA();       //clear a to 0
     clearB();       //clear b to 0
     clearCarry();   //clear carry to 0
+    clearOverflow();//clear overflow to 0
 }
