@@ -3,7 +3,7 @@
 using namespace std;
 
 //--------Member modifications methods--------
-void ALU::setA(bool *value)
+void ALU::setA(bool value[])
 {
     for (size_t i = 0; i < ALU_BITS; i++)
         getA()[i] = value[i];
@@ -19,7 +19,7 @@ void ALU::clearA()
     setA(clear);
 }
 
-void ALU::setB(bool *value)
+void ALU::setB(bool value[])
 {
     for (size_t i = 0; i < ALU_BITS; i++)
         getB()[i] = value[i];
@@ -41,9 +41,11 @@ bool *ALU::add()
 {
     //init array for return
     bool *sum = new bool[16];
+    clearOverflow();
+    bool carryIn;
     for (int i = 15; i > -1; i--)
     {
-        bool carryIn = getCarry();                      //capture carry in for overflow detection
+        carryIn = getCarry();                           //capture carry in for overflow detection
         int total = getA()[i] + getB()[i] + getCarry(); //sum bits from a, b, and carry
         if (total == 0)
             sum[i] = total;
@@ -62,15 +64,10 @@ bool *ALU::add()
             sum[i] = 1;
             setCarry();
         }
-        //if carry in does not equal carry out
-        if (i == 0 && carryIn != getCarry())
-        {
-            clearCarry();
-            setOverflow(); //set overflow bit to show overflow occurred
-        }
     }
+    if (carryIn != getCarry()) //set overflow when it occurs
+        setOverflow();
     clearCarry();
-    clearOverflow();
     return sum;
 }
 

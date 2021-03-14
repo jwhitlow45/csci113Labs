@@ -26,8 +26,8 @@ public:
     bool getCarry() { return carry; }
     bool getOverflow() { return overflow; }
 
-    void setA(bool *);                   //set a to passed value
-    void setB(bool *);                   //set b to passed value
+    void setA(bool[]);                   //set a to passed value
+    void setB(bool[]);                   //set b to passed value
     void setOp(string arg) { op = arg; } //set op to passed value
     void setCarry() { carry = 1; }       //set carry to 1
     void setOverflow() { overflow = 1; } //set overflow to 1
