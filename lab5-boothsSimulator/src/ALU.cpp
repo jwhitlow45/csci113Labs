@@ -91,9 +91,9 @@ void ALU::negate(bool arg[ALU_BITS])
 
 void ALU::execute()
 {
-    if (op == "01")
+    if (op == ADD_OPCODE)
         add();
-    else if (op == "10")
+    else if (op == SUB_OPCODE)
         subtract();
 }
 

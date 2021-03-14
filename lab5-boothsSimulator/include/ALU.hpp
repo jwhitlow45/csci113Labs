@@ -3,6 +3,8 @@
 #include <string>
 #define ALU_BITS 16
 #define OP_BITS 2
+#define ADD_OPCODE "01"
+#define SUB_OPCODE "10"
 
 using namespace std;
 
