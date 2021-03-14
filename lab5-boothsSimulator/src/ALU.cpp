@@ -93,8 +93,9 @@ bool *ALU::execute()
 {
     if (op == ADD_OPCODE)
         return add();
-    else if (op == SUB_OPCODE)
+    if (op == SUB_OPCODE)
         return subtract();
+    throw "Invalid OPCODE!";
 }
 
 // constructor
