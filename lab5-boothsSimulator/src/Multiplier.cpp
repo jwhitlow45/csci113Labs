@@ -73,7 +73,7 @@ void Multiplier::clearMQ()
 //--------Operations--------
 bool Multiplier::arithmeticRightShift(bool *value)
 {
-    bool falloffBit = value[15];
+    bool falloffBit = value[ALU_BITS - 1];
     for (size_t i = ALU_BITS - 1; i > 0; i--)
         value[i] = value[i - 1];
     return falloffBit;
@@ -85,14 +85,13 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
     clearAC();          //clear ac to 0's
     setMD(argMD);       //set md to first argument
     setMQ(argMQ);       //set mq to second argument
-    clearMQ1();         //bit shifted off of MQ
+    clearMQ1();         //clear MQ
 
     for (size_t i = 0; i < 16; i++)
     { //case of 00 and 11 can be ignored as they
         //result in no change
         if (getMQ()[i] == 0 && getMQ1() == 1)
         {
-            cout<<"add\n";
             ALUComp->setA(getAC());
             ALUComp->setB(getMD());
             ALUComp->setOp(ADD_OPCODE);
@@ -100,7 +99,6 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
         }
         else if (getMQ()[i] == 1 && getMQ1() == 0)
         {
-            cout<<"sub\n";
             ALUComp->setA(getAC());
             ALUComp->setB(getMD());
             ALUComp->setOp(SUB_OPCODE);
@@ -111,14 +109,14 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
 
         //shift ac, mq and mq1 right as if they were one large register
         setMQ1(arithmeticRightShift(getMQ()));
-        getMQ()[0] = arithmeticRightShift(getMD());
+        getMQ()[0] = arithmeticRightShift(getAC());
 
         display();         //display machine state
         decCycleCounter(); //decrement cycle count
     }
 
     //copy product to result array and return result
-    bool* result = new bool[32];
+    bool *result = new bool[32];
     for (size_t i = 0; i < ALU_BITS; i++)
     {
         result[i] = getAC()[i];
@@ -138,12 +136,13 @@ void Multiplier::display()
     for (size_t i = 0; i < CYCLE_COUNTER_BITS; i++) //print cycle counter
         cout << getCycleCounter()[i];
     cout << '\t';
-    displayRegister(getMD());
+    displayRegister(getMD()); //print md register
     cout << '\t';
-    displayRegister(getAC());
+    displayRegister(getAC()); //print ac register
     cout << '\t';
-    displayRegister(getMQ());
-    cout << '\t' << getMQ1() << endl;
+    displayRegister(getMQ()); //print mq register
+
+    cout << '\t' << getMQ1() << endl; //print mq1
 }
 
 //constructors

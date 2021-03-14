@@ -8,13 +8,12 @@ void printArr(bool *arr, size_t size);
 
 int main()
 {
+    bool arra[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
+    bool arrb[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
     Multiplier *myMult = new Multiplier();
-
-    bool arrb[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1};
-    bool arra[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1};
     bool *result;
 
-    cout << "cycle\tmd\t\t\t\tac\t\t\t\tmq\t\t\t\tmq1\n";
+    cout << "CYCLE\t\tMD\t\t\tAC\t\t\tMQ\t\t\t\t\tMQ1\n";
 
     result = myMult->multiply(arra, arrb);
     printArr(result, 32);
