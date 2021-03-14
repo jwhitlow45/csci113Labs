@@ -6,8 +6,6 @@
 class Multiplier
 {
 private:
-    ALU *ALUComp;
-
     //registers
     bool MD[ALU_BITS]; //register MD
     bool AC[ALU_BITS]; //register AC
@@ -16,11 +14,14 @@ private:
     bool cycleCounter[CYCLE_COUNTER_BITS]; //cycle counter
 
     //--------Cycle counter methods--------
-    //setter method
+    //init method
     void initCycleCounter();
+    void decCycleCounter();
 
 public:
-    void decCycleCounter();
+    //ALU Component
+    ALU *ALUComp;
+
     //--------Register methods--------
     //register accessors
     bool *getMD() { return MD; };
@@ -37,6 +38,8 @@ public:
     void clearMQ(); //clear MQ to 0's
 
     //--------Operations--------
+    void arithmeticRightShift(bool*);
+    void Multiplier::multiply(bool*, bool*);
 
     //constructors
     Multiplier();

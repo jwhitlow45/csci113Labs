@@ -10,11 +10,6 @@ int main()
 {
     Multiplier *myMult = new Multiplier();
 
-    for (size_t i = 0; i < 15; i++)
-    {
-        myMult->decCycleCounter();
-        printArr(myMult->getCycleCounter(), 4);
-    }
 
     return 0;
 }

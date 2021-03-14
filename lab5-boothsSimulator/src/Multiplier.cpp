@@ -14,11 +14,11 @@ void Multiplier::decCycleCounter()
 {
     for (int i = CYCLE_COUNTER_BITS; i > -1; i--)
     {
-        if (cycleCounter[i] == 1)           //if current bit is 1
+        if (cycleCounter[i] == 1) //if current bit is 1
         {
-            cycleCounter[i] = 0;            //set current bit to 0
-            while (i < CYCLE_COUNTER_BITS)  //set all preceding (right)
-            {                                   //bits to 1 and exit
+            cycleCounter[i] = 0;           //set current bit to 0
+            while (i < CYCLE_COUNTER_BITS) //set all preceding (right)
+            {                              //bits to 1 and exit
                 i++;
                 cycleCounter[i] = 1;
             }
@@ -67,6 +67,28 @@ void Multiplier::clearMQ()
                             0, 0, 0, 0,
                             0, 0, 0, 0};
     setMQ(clear);
+}
+
+//--------Operations--------
+void Multiplier::arithmeticRightShift(bool *value)
+{
+    for (size_t i = ALU_BITS - 1; i > 0; i--)
+        value[i] = value[i - 1];
+}
+
+void Multiplier::multiply(bool* argMD, bool* argMQ)
+{
+    initCycleCounter();
+    clearAC();
+    setMD(argMD);
+    setMQ(argMQ);
+    bool MQNext = 0;
+
+    for (size_t i = 0; i < 16; i++)
+    {
+        /* code */
+    }
+    
 }
 
 //constructors
