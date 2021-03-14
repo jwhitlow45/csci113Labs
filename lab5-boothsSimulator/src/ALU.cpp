@@ -43,7 +43,7 @@ bool *ALU::add()
     bool *sum = new bool[16];
     for (int i = 15; i > -1; i--)
     {
-        bool carryIn = getCarry();  //capture carry in for overflow detection
+        bool carryIn = getCarry();                      //capture carry in for overflow detection
         int total = getA()[i] + getB()[i] + getCarry(); //sum bits from a, b, and carry
         if (total == 0)
             sum[i] = total;
@@ -66,7 +66,7 @@ bool *ALU::add()
         if (i == 0 && carryIn != getCarry())
         {
             clearCarry();
-            setOverflow();  //set overflow bit to show overflow occurred
+            setOverflow(); //set overflow bit to show overflow occurred
         }
     }
     clearCarry();
@@ -84,16 +84,24 @@ bool *ALU::subtract()
 }
 
 void ALU::negate(bool arg[ALU_BITS])
-{   //perform 1's complement on register
+{ //perform 1's complement on register
     for (size_t i = 0; i < 16; i++)
         arg[i] = !arg[i];
+}
+
+void ALU::execute()
+{
+    if (op == "01")
+        add();
+    else if (op == "10")
+        subtract();
 }
 
 // constructor
 ALU::ALU()
 {
-    clearA();       //clear a to 0
-    clearB();       //clear b to 0
-    clearCarry();   //clear carry to 0
-    clearOverflow();//clear overflow to 0
+    clearA();        //clear a to 0
+    clearB();        //clear b to 0
+    clearCarry();    //clear carry to 0
+    clearOverflow(); //clear overflow to 0
 }
