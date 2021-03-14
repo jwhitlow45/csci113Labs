@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Multiplier.hpp"
 
 using namespace std;
@@ -12,7 +13,7 @@ void Multiplier::initCycleCounter()
 
 void Multiplier::decCycleCounter()
 {
-    for (int i = CYCLE_COUNTER_BITS; i > -1; i--)
+    for (int i = CYCLE_COUNTER_BITS - 1; i > -1; i--)
     {
         if (cycleCounter[i] == 1) //if current bit is 1
         {
@@ -70,25 +71,79 @@ void Multiplier::clearMQ()
 }
 
 //--------Operations--------
-void Multiplier::arithmeticRightShift(bool *value)
+bool Multiplier::arithmeticRightShift(bool *value)
 {
+    bool falloffBit = value[15];
     for (size_t i = ALU_BITS - 1; i > 0; i--)
         value[i] = value[i - 1];
+    return falloffBit;
 }
 
-void Multiplier::multiply(bool* argMD, bool* argMQ)
+bool *Multiplier::multiply(bool *argMD, bool *argMQ)
 {
-    initCycleCounter();
-    clearAC();
-    setMD(argMD);
-    setMQ(argMQ);
-    bool MQNext = 0;
+    initCycleCounter(); //set cycle counter to 1111
+    clearAC();          //clear ac to 0's
+    setMD(argMD);       //set md to first argument
+    setMQ(argMQ);       //set mq to second argument
+    clearMQ1();         //bit shifted off of MQ
 
     for (size_t i = 0; i < 16; i++)
-    {
-        /* code */
+    { //case of 00 and 11 can be ignored as they
+        //result in no change
+        if (getMQ()[i] == 0 && getMQ1() == 1)
+        {
+            cout<<"add\n";
+            ALUComp->setA(getAC());
+            ALUComp->setB(getMD());
+            ALUComp->setOp(ADD_OPCODE);
+            setAC(ALUComp->execute());
+        }
+        else if (getMQ()[i] == 1 && getMQ1() == 0)
+        {
+            cout<<"sub\n";
+            ALUComp->setA(getAC());
+            ALUComp->setB(getMD());
+            ALUComp->setOp(SUB_OPCODE);
+            setAC(ALUComp->execute());
+        }
+
+        display(); //display machine state
+
+        //shift ac, mq and mq1 right as if they were one large register
+        setMQ1(arithmeticRightShift(getMQ()));
+        getMQ()[0] = arithmeticRightShift(getMD());
+
+        display();         //display machine state
+        decCycleCounter(); //decrement cycle count
     }
-    
+
+    //copy product to result array and return result
+    bool* result = new bool[32];
+    for (size_t i = 0; i < ALU_BITS; i++)
+    {
+        result[i] = getAC()[i];
+        result[i + 16] = getMQ()[i];
+    }
+    return result;
+}
+
+void Multiplier::displayRegister(bool *reg)
+{
+    for (size_t i = 0; i < ALU_BITS; i++)
+        cout << reg[i];
+}
+
+void Multiplier::display()
+{
+    for (size_t i = 0; i < CYCLE_COUNTER_BITS; i++) //print cycle counter
+        cout << getCycleCounter()[i];
+    cout << '\t';
+    displayRegister(getMD());
+    cout << '\t';
+    displayRegister(getAC());
+    cout << '\t';
+    displayRegister(getMQ());
+    cout << '\t' << getMQ1() << endl;
 }
 
 //constructors
