@@ -42,7 +42,7 @@ public:
     bool *add();                     //add values in a and b (a+b)
     bool *subtract();                //sub values in a and b (a-b)
     void negate(bool arg[ALU_BITS]); //flip all bits in passed value
-    void execute();                  //execute alu on current values
+    bool *execute();                 //execute alu on current values
                                      //in its registers
     //constructor
     ALU();

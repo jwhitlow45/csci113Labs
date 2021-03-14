@@ -89,12 +89,12 @@ void ALU::negate(bool arg[ALU_BITS])
         arg[i] = !arg[i];
 }
 
-void ALU::execute()
+bool *ALU::execute()
 {
     if (op == ADD_OPCODE)
-        add();
+        return add();
     else if (op == SUB_OPCODE)
-        subtract();
+        return subtract();
 }
 
 // constructor
