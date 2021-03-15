@@ -8,8 +8,11 @@ void printArr(bool *arr, size_t size);
 
 int main()
 {
-    bool arra[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
-    bool arrb[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
+    //bool arra[16] = {0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1};
+    //bool arrb[16] = {0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1};
+
+    bool arra[16] = {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1};
+    bool arrb[16] = {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1};
     Multiplier *myMult = new Multiplier();
     bool *result;
 

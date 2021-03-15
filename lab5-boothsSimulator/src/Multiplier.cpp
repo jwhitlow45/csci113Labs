@@ -6,9 +6,8 @@ using namespace std;
 //--------Cycle counter methods--------
 void Multiplier::initCycleCounter()
 {
-    bool set[CYCLE_COUNTER_BITS] = {1, 1, 1, 1};
     for (size_t i = 0; i < CYCLE_COUNTER_BITS; i++)
-        cycleCounter[i] = set[i];
+        cycleCounter[i] = 1;
 }
 
 void Multiplier::decCycleCounter()
@@ -87,17 +86,17 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
     setMQ(argMQ);       //set mq to second argument
     clearMQ1();         //clear MQ
 
-    for (size_t i = 0; i < 16; i++)
+    for (size_t i = 0; i < ALU_BITS; i++)
     { //case of 00 and 11 can be ignored as they
         //result in no change
-        if (getMQ()[i] == 0 && getMQ1() == 1)
+        if (getMQ()[ALU_BITS - 1] == 0 && getMQ1() == 1)
         {
             ALUComp->setA(getAC());
             ALUComp->setB(getMD());
             ALUComp->setOp(ADD_OPCODE);
             setAC(ALUComp->execute());
         }
-        else if (getMQ()[i] == 1 && getMQ1() == 0)
+        else if (getMQ()[ALU_BITS - 1] == 1 && getMQ1() == 0)
         {
             ALUComp->setA(getAC());
             ALUComp->setB(getMD());
@@ -110,6 +109,7 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
         //shift ac, mq and mq1 right as if they were one large register
         setMQ1(arithmeticRightShift(getMQ()));
         getMQ()[0] = arithmeticRightShift(getAC());
+        cout << "shift\n";
 
         display();         //display machine state
         decCycleCounter(); //decrement cycle count
