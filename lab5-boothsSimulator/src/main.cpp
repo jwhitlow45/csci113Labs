@@ -40,22 +40,17 @@ void test()
 {
     TestSuite Test;
     Multiplier Mult;
-    
+
     const int NUM_INC = pow(2, ALU_BITS);
 
-    bool arrPos[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    bool arrNeg[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    bool arrRabbit[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    bool arrPosTurtle[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    bool arrNegTurtle[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    bool arrNegTurtle[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    //pos 
+    //pos
     for (size_t i = 0; i < NUM_INC; i++)
     {
         int target;
         int val0 = Test.binaryToDecimal(arrPos, ALU_BITS);
-
     }
-    
-
 }

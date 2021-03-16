@@ -48,7 +48,7 @@ void TestSuite::twoPosComp(bool value[], size_t size)
     incPosBinary(value, size); //add 1
 }
 
-bool TestSuite::comp(bool value0[], bool value1[], size_t size)
+bool TestSuite::compare(bool value0[], bool value1[], size_t size)
 {
     for (size_t i = 0; i < size; i++)
     {
