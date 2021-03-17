@@ -1,16 +1,17 @@
 #include <iostream>
 #include <string>
 #include "Multiplier.hpp"
-#include "TestSuite.hpp"
 
 using namespace std;
 
 void printArr(bool *arr, size_t size);
 
+void test();
+
 int main()
 {
-    /*bool arra[16] = {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1};
-    bool arrb[16] = {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1};
+    bool arra[16] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    bool arrb[16] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     Multiplier *myMult = new Multiplier();
     bool *result;
 
@@ -22,7 +23,7 @@ int main()
     delete result;
     result = nullptr;
     delete myMult;
-    myMult = nullptr;*/
+    myMult = nullptr;
 
     return 0;
 }
@@ -34,23 +35,4 @@ void printArr(bool *arr, size_t size)
         cout << arr[i];
     }
     cout << endl;
-}
-
-void test()
-{
-    TestSuite Test;
-    Multiplier Mult;
-
-    const int NUM_INC = pow(2, ALU_BITS);
-
-    bool arrRabbit[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    bool arrNegTurtle[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    //pos
-    for (size_t i = 0; i < NUM_INC; i++)
-    {
-        int target;
-        int val0 = Test.binaryToDecimal(arrPos, ALU_BITS);
-    }
 }

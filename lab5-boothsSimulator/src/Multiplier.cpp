@@ -104,14 +104,13 @@ bool *Multiplier::multiply(bool *argMD, bool *argMQ)
             setAC(ALUComp->execute());
         }
 
-        display(); //display machine state
+        //display(); //display machine state
 
         //shift ac, mq and mq1 right as if they were one large register
         setMQ1(arithmeticRightShift(getMQ()));
         getMQ()[0] = arithmeticRightShift(getAC());
-        cout << "shift\n";
 
-        display();         //display machine state
+        //display();         //display machine state
         decCycleCounter(); //decrement cycle count
     }
 
