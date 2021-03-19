@@ -6,12 +6,11 @@ using namespace std;
 
 bool *getUserBinary(string);         //get binary from user and return binary array
 void stringToBinary(string, bool *); //convert string to binary array
-void printArr(bool *, size_t);
+void printArr(bool *, size_t);       //print passed array
 
 int main()
 {
-    //Given binary values
-    //strings for binary values
+    //Strings for binary values found in the lab
     string md0 = "0000000110101001";
     string mq0 = "1111111100110101";
     string md1 = "0000000000101001";
@@ -23,10 +22,10 @@ int main()
     Multiplier *myMult = new Multiplier();
     bool *result;
 
-    string sUserMD;
-    string sUserMQ;
-    bool userMD[16];
-    bool userMQ[16];
+    string sUserMD;  //user string containing md register
+    string sUserMQ;  //user string containing mq register
+    bool userMD[16]; //md register converted to binary array
+    bool userMQ[16]; //mq register converted to binary array
 
     cout << "Booth's Multiplication Simulator\n--------------------------------\n";
     cout << "Enter a 16-bit binary number for MD register: ";
@@ -43,9 +42,10 @@ int main()
     printArr(userMQ, 16);
 
     cout << "\nCYCLE\t\tMD\t\t\tAC\t\t\tMQ\t\t\t\t\tMQ1\n";
-
     result = myMult->multiply(userMD, userMQ);
-    printArr(result, 32);
+    cout << "\nResult: ";
+    printArr(result, ALU_BITS * 2);
+    cout << endl;
 
     delete result;
     result = nullptr;
