@@ -1,0 +1,114 @@
+1. program description
+    This program takes in two signed 16-bit binary values from the user and emulates
+    an ALU performing Booth's Multiplication Algorithm on these values. The output
+    displays the two values which are being multiplied, as well as the MD, MQ, AC,
+    and MQ1 values as the algorithm progresses. The final line of the output displays
+    the results of the program's multiplication.
+
+2.methodologies/technologies/algorithm/schema/domain
+    To write this program I broke each component up into its own class. This allowed
+    for methods to be written scoped to a class which did not need to be accessed
+    by outside methods. This form of program structure provided a lot of security
+    for each component while making the code organization and readability much
+    cleaner. The file structure of the program is as follows:
+
+        root/
+          L> include/
+              L> ALU.hpp
+              L> Multiplier.hpp
+          L> src/
+              L> ALU.cpp
+              L> Multiplier.cpp
+              L> main.cpp
+
+    The include directory contains the header files with method definition and
+    members of the .ccp files found in src. This makes up the two objects used
+    in the program: ALU and Multiplier. The main file of the program exists in
+    the root directory under the name main.cpp.
+
+    For easier checking I included the binary values included in the assignment
+    at the top of the main. These can be copied into terminal to check the
+    program runs properly.
+
+    The program starts by instantiating a new Multiplier object pointed to by
+    myMult. This creates all of the registers (MD, AC, MQ, MQ1) needed for the
+    multiplication as 16-bit binary arrays. A cycle counter is also created that
+    is 4-bits long. These are all cleared to 0 when the object is created as well
+    as creating an ALU object in the Multiplier object. This ALU contains all of
+    the 16-bit registers needed for the ALU operations (A, B) as well as a string
+    for the op-code and two flags for carry and overflow.
+
+    A bool pointer result is then created to be set to the return of the Multiplier
+    method multiply. The user is prompted for two inputs of 16-bit binary values.
+    These are stored in a two strings sUserMD and sUserMQ which are then converted
+    to binary arrays userMD and userMQ. The two values to be multiplied are then
+    displayed and method multiply of class Multiplier is called given arguments
+    userMD and userMQ.
+
+    The multiply method then sets the cycle counter to 1111, clears the AC register,
+    sets the MD register to userMD, sets the MQ register to userMQ, and clears the
+    MQ1 register to 0. The following algorithm is then ran 16 times which will
+    result in the product of MD and MQ being the concatenation of AC and MQ after
+    the final cycle.
+
+        if (last bit of MQ == 0) and (MQ1 == 1)
+            set A register of ALU to AC
+            set B register of ALU to MD
+            set opcode register of ALU to 10
+            set AC to result of operation performed by
+                execute method based on above parameters
+
+        else if (last bit of MQ == 1) and (MQ1 == 0)
+            set A register of ALU to AC
+            set B register of ALU to MD
+            set opcode register of ALU to 01
+            set AC to result of operation performed by
+                execute method based on above parameters
+
+        display contents of MD, AC, MQ, and MQ1 registers
+
+        right arithmetic shift MQ by 1, set MQ1 to falloff bit
+        right arithmetic shift AC by 1, set most significant bit
+            of MQ to falloff bit
+
+        display contents of MD, AC, MQ, and MQ1 registers
+        decrease cycle counter by 1
+
+    Once this algorithm has been repeated 16 times the result is then stored in a
+    32-bit binary array named result. This result is gotten by concatenating AC and
+    MQ. The result is then returned.
+
+    The return is stored in the bool pointer in main named result. This is then
+    output to terminal using the printArr function in main. The program then deletes
+    the object result is pointing to as it was dynamically allocated and sets the
+    result pointer to null. The same is done for myMult and the program returns 0.
+
+3. inputs and outputs of the program(ex. output 
+   comes from user/txt file)
+
+   Input: Input is requires two 16-bit binary values received from the user
+   Output: Output is printed to terminal containing the registers at each
+    half cycle of the program (each cycle is displayed twice as two steps are
+    done per cycle). The last line of the output contains the result of the 
+    multiplication operation in 32-bit signed binary
+
+
+4. compile/runtime environment. what we used and how to compile and run our program.
+    This program was built for C++17 using the G++ compiler and GDB for debugging.
+    It can be ran with the following configuration:
+
+            CXX       := g++
+            CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+
+            BIN     := bin
+            SRC     := src
+            INCLUDE := include
+            LIB     := lib
+
+            LIBRARIES   :=
+            EXECUTABLE  := main
+
+    The subfolder src must contain all .cpp files. The subfolder include must contain all .hpp
+    files. The lib folder can be empty as this project does not use any external
+    libraries.
+
