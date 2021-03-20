@@ -27,8 +27,9 @@ int main()
     bool userMD[16]; //md register converted to binary array
     bool userMQ[16]; //mq register converted to binary array
 
-    cout << "Booth's Multiplication Simulator\n--------------------------------\n";
-    cout << "Enter a 16-bit binary number for MD register: ";
+    cout << "Booth's Multiplication Simulator\n"
+         << "--------------------------------\n"
+         << "Enter a 16-bit binary number for MD register: ";
     getline(cin, sUserMD);
     stringToBinary(sUserMD, userMD);
 
